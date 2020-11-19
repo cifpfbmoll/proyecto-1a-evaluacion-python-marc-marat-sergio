@@ -1,11 +1,12 @@
 import random
 separador = "\n"*15
+finDeJuego = False
 ##definiremos las funciones arriba
 def pedirCoordenada():
     coordenadaX= int(input("Escribe una cordenada X: "))
     coordenadaY= int(input("Escribe una cordenada Y: "))
     ##Se le pide al jugador que elija coordenada
-    coordenadaXY = coordenadas[(coordenadaY-1)+((coordenadaX-1)*altura)]
+    coordenadaXY = (coordenadaX-1)+((coordenadaY-1)*anchura)
     return coordenadaXY
     ##se localiza la coordenada
 def actualizarTablero(): ## de esto me encargo yo (mucha mierda - poco jugo)
@@ -46,4 +47,8 @@ for x in range(anchura): ##se crean las coordenadas
     ## estructura de las listas anidadas:
     ##(coordenadaX, coordenadaY, descubierto?, contenido)
     ## descubierto? puede tomar los valores 0 (no descubierto), 1(descubierto) y -1(con bandera)
-    ## el contenido puede ser 0(vacio), 1, 2, 3, 4, 5, 6, 7, 8, -1(bomba) o -2(bandera)
+    ## el contenido puede ser 0(vacio), 1, 2, 3, 4, 5, 6, 7, 8 o -1(bomba)
+while finDeJuego == False:
+    actualizarTablero()
+    coordenadaActual = pedirCoordenada()
+    coordenadas[coordenadaActual][-2] = 1
