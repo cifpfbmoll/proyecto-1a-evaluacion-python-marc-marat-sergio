@@ -3,12 +3,17 @@ separador = "\n"*15
 finDeJuego = False
 ##definiremos las funciones arriba
 def pedirCoordenada():
-    coordenadaX= int(input("Escribe una cordenada X: "))
-    coordenadaY= int(input("Escribe una cordenada Y: "))
-    ##Se le pide al jugador que elija coordenada
-    coordenadaXY = (coordenadaX-1)+((coordenadaY-1)*anchura)
-    return coordenadaXY
-    ##se localiza la coordenada
+    coordenadaX= (input("Escribe una cordenada X: "))
+    if coordenadaX == "bandera" or coordenadaX == "b":
+        coordenadaX= (input("Escribe una cordenada X para la bandera: "))
+        coordenadaY= (input("Escribe una cordenada Y para la bandera: "))
+        coordenadaXY = [True, int((int(coordenadaX)-1)+((int(coordenadaY)-1)*anchura))]
+        return coordenadaXY
+    else:
+        coordenadaY= (input("Escribe una cordenada Y: "))
+        ##Se le pide al jugador que elija coordenada
+        coordenadaXY = [False, int((int(coordenadaX)-1)+((int(coordenadaY)-1)*anchura))]
+        return coordenadaXY
 def actualizarTablero(): ## de esto me encargo yo (mucha mierda - poco jugo)
     print(separador)
     print(" "*9, sep="", end="")
@@ -51,4 +56,15 @@ for x in range(anchura): ##se crean las coordenadas
 while finDeJuego == False:
     actualizarTablero()
     coordenadaActual = pedirCoordenada()
-    coordenadas[coordenadaActual][-2] = 1
+    pedirCoordenadaNumero = coordenadaActual[1]
+    pedirCoordenadaBandera = coordenadaActual[0]
+    if pedirCoordenadaBandera == True:
+        if coordenadas[pedirCoordenadaNumero][-2] == -1:
+            coordenadas[pedirCoordenadaNumero][-2] = 0
+        elif coordenadas[pedirCoordenadaNumero][-2] == 0:
+            coordenadas[pedirCoordenadaNumero][-2] = -1
+    if pedirCoordenadaBandera == False:
+        if coordenadas[pedirCoordenadaNumero][-2] == -1:
+            coordenadas[pedirCoordenadaNumero][-2] = 0
+        else:
+            coordenadas[pedirCoordenadaNumero][-2] = 1
