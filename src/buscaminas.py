@@ -4,7 +4,7 @@ finDeJuego = False
 ##definiremos las funciones arriba
 def pedirCoordenada():
     coordenadaX= (input("Escribe una cordenada X: "))
-    if coordenadaX == "bandera" or coordenadaX == "b":
+    if coordenadaX == "bandera" or coordenadaX == "b": ##por si quiere poner bandera
         coordenadaX= (input("Escribe una cordenada X para la bandera: "))
         coordenadaY= (input("Escribe una cordenada Y para la bandera: "))
         coordenadaXY = [True, int((int(coordenadaX)-1)+((int(coordenadaY)-1)*anchura))]
