@@ -75,4 +75,7 @@ while finDeJuego == False:
             coordenadas[pedirCoordenadaNumero][-2] = 0
         else:
             coordenadas[pedirCoordenadaNumero][-2] = 1
+            
+            
+print ()
 
