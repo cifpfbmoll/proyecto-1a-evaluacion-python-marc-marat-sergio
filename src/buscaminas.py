@@ -1,4 +1,5 @@
 import random
+import sys
 separador = "\n"*15
 finDeJuego = False
 bombas = []
@@ -38,7 +39,7 @@ def actualizarTablero(): ## de esto me encargo yo (mucha mierda - poco jugo)
             if i[-1] == 0:
                 print("|", " ", end=" ")
             if i[-1] == -1:
-                print("\033[1;37;40m|", "\033[0;31;40m ", chr(164), end="\033[1;37;40m "\033[1;37;40m)
+                print("\033[1;37;40m|", "\033[0;31;40m ", chr(164), end="\033[1;37;40m ", sep="")
         if i[-2] == -1:
             print("\033[1;37;40m|", "\033[0;31;40m ", chr(182), end="\033[1;37;40m ", sep="")
     print("|")
@@ -77,3 +78,7 @@ while finDeJuego == False:
         if casillasAbiertas == 0:
             ponerBombas()
         casillasAbiertas =+ 1
+        if coordenadas[pedirCoordenadaNumero][-1] == -1:
+            actualizarTablero()
+            print("\nHAS PERDIDO!")
+            finDeJuego=True
