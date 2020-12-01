@@ -1,6 +1,8 @@
 import random
 separador = "\n"*15
 finDeJuego = False
+bombas = []
+
 ##definiremos las funciones arriba
 def pedirCoordenada():
     coordenadaX= (input("Escribe una cordenada X: "))
@@ -29,20 +31,26 @@ def actualizarTablero(): ## de esto me encargo yo (mucha mierda - poco jugo)
                 print(" "*7, "|", "-"*((anchura*4)-1), "|", sep="")
                 print((int(coordenadas.index(i)/anchura)+1), " "*(6 - (len(str(int(coordenadas.index(i)/anchura)+1)))), end="")
         if i[-2] == 0:
-            print("|", "?", end=" ")
+            print("\033[1;37;40m|", "\033[0;32;40m?", end="\033[1;37;40m ")
         if i[-2] == 1:
             if i[-1] > 0 and i[-1] < 9:
-                print("|", i[-1], end=" ")
+                print("\033[1;37;40m|", "\033[0;34;40m ", i[-1], end="\033[1;37;40m ", sep="")
             if i[-1] == 0:
                 print("|", " ", end=" ")
             if i[-1] == -1:
-                print("|", chr(164), end=" ")
+                print("\033[1;37;40m|", "\033[0;31;40m ", chr(164), end="\033[1;37;40m "\033[1;37;40m)
         if i[-2] == -1:
-            print("|", chr(182), end=" ")
+            print("\033[1;37;40m|", "\033[0;31;40m ", chr(182), end="\033[1;37;40m ", sep="")
     print("|")
     print(" "*7, "-"*((anchura*4)+1), sep="")
 ##iniciar
 ##tablero base: 18x14 - 40bombas
+def ponerBombas():
+    posiblesBombas=list(range(len(coordenadas)))
+    posiblesBombas.pop(pedirCoordenadaNumero)
+    posiblesBombas = random.sample(posiblesBombas,(int((anchura*altura)//6.3)))
+    for k in posiblesBombas:
+        coordenadas[k][-1] = -1
 anchura = int(input("Anchura del tablero: ")) ##selecciona anchura tablero (x)
 altura = int(input("Altura del tablero: ")) ##seleccionar altura tablero (y)
 coordenadas=[] ##se declara la lista vacia para meter las coordenadas
@@ -53,6 +61,7 @@ for x in range(anchura): ##se crean las coordenadas
     ##(coordenadaX, coordenadaY, descubierto?, contenido)
     ## descubierto? puede tomar los valores 0 (no descubierto), 1(descubierto) y -1(con bandera)
     ## el contenido puede ser 0(vacio), 1, 2, 3, 4, 5, 6, 7, 8 o -1(bomba)
+casillasAbiertas = 0
 while finDeJuego == False:
     actualizarTablero()
     coordenadaActual = pedirCoordenada()
@@ -64,7 +73,7 @@ while finDeJuego == False:
         elif coordenadas[pedirCoordenadaNumero][-2] == 0:
             coordenadas[pedirCoordenadaNumero][-2] = -1
     if pedirCoordenadaBandera == False:
-        if coordenadas[pedirCoordenadaNumero][-2] == -1:
-            coordenadas[pedirCoordenadaNumero][-2] = 0
-        else:
-            coordenadas[pedirCoordenadaNumero][-2] = 1
+        coordenadas[pedirCoordenadaNumero][-2] = 1
+        if casillasAbiertas == 0:
+            ponerBombas()
+        casillasAbiertas =+ 1
