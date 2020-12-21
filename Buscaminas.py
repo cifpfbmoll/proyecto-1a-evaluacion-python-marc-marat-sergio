@@ -14,16 +14,22 @@ def pedirCoordenada(): #Pide al jugador las coordenadas XY que quieres descubrir
             coordenadaXY = [True, int((int(coordenadaX)-1)+((int(coordenadaY)-1)*anchura))]
             return coordenadaXY #Esta variable contiene un booleano para la bandera
         else:                   #y un entero para el numero de la casilla
-            print("Valores introducidos incorrectos")
-            pedirCoordenada() #Si las coordenadas no son correctas se vuelve a llamar al procedimiento
+            while comprovarCoordenadas(int(coordenadaX),int(coordenadaY)) != True:
+                print("Valores introducidos incorrectos")
+                coordenadaXY = [False, int((int(coordenadaX)-1)+((int(coordenadaY)-1)*anchura))]
+                coordenadaXY = pedirCoordenada()
+                return coordenadaXY#Si las coordenadas no son correctas se vuelve a llamar al procedimiento
     else:
         coordenadaY = (input("Escribe una cordenada Y: ")) #Lo mismo de arriba pero sin bandera
         if comprovarCoordenadas(int(coordenadaX),int(coordenadaY)) == True:
             coordenadaXY = [False, int((int(coordenadaX)-1)+((int(coordenadaY)-1)*anchura))]
             return coordenadaXY
         else:
-            print("Valores introducidos incorrectos")
-            pedirCoordenada()
+            while comprovarCoordenadas(int(coordenadaX),int(coordenadaY)) != True:
+                print("Valores introducidos incorrectos")
+                coordenadaXY = [False, int((int(coordenadaX)-1)+((int(coordenadaY)-1)*anchura))]
+                coordenadaXY = pedirCoordenada()
+                return coordenadaXY
 
             
 def comprovarCoordenadas(x,y): #la funcion recibe coordenadaX y coordenadaY desde pedirCoordenadas()
